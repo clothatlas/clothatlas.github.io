@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ClothAtlas: Joint Garment Identification and State Estimation under Self-Occlusion</title>
+  <meta name="description" content="ClothAtlas jointly identifies garments and estimates their complete configurations from partial point clouds and a library of canonical meshes.">
+  <meta name="keywords" content="ClothAtlas, garment manipulation, cloth state estimation, flow matching, mesh identification, robotics">
+
+  <meta property="og:title" content="ClothAtlas: Joint Garment Identification and State Estimation under Self-Occlusion">
+  <meta property="og:description" content="Joint garment identification and complete configuration estimation from partial, self-occluded point clouds.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="static/images/video_poster.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👕</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600;700&family=Castoro&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop has-text-centered">
+      <h1 class="title is-1 publication-title">ClothAtlas</h1>
+      <h2 class="subtitle is-3 publication-subtitle">Joint Garment Identification and State Estimation under Self-Occlusion</h2>
+
+      <!-- TODO: author list and affiliations are provisional (from the commented block in main.tex).
+           Keep this page private until the double-anonymous review period is over. -->
+      <div class="is-size-5 publication-authors">
+        <span class="author-block">Jens Lundell<sup>1,*</sup>,</span>
+        <span class="author-block">Alberta Longhini<sup>2,*</sup>,</span>
+        <span class="author-block">Hemal Arora<sup>2</sup>,</span>
+        <span class="author-block">Evan Robert<sup>2</sup>,</span>
+        <span class="author-block">Lei Shu<sup>2</sup>,</span>
+        <span class="author-block">Carlota Parés-Morlans<sup>2</sup>,</span>
+        <span class="author-block">Marcel Büsching<sup>3</sup>,</span>
+        <span class="author-block">Mårten Björkman<sup>3</sup>,</span>
+        <span class="author-block">Jeannette Bohg<sup>2</sup></span>
+      </div>
+      <div class="is-size-6 publication-affiliations">
+        <span class="author-block"><sup>1</sup>University of Turku</span>
+        <span class="author-block"><sup>2</sup>Stanford University</span>
+        <span class="author-block"><sup>3</sup>KTH Royal Institute of Technology</span>
+        <br><span class="author-block"><sup>*</sup>Equal contribution</span>
+      </div>
+
+      <div class="publication-links">
+        <!-- TODO: uncomment once the paper and code are public. -->
+        <!--
+        <a class="button is-rounded is-dark" href="https://arxiv.org/abs/XXXX.XXXXX">
+          <span class="icon"><i class="fas fa-file-pdf"></i></span><span>Paper</span>
+        </a>
+        <a class="button is-rounded is-dark" href="https://github.com/XXXX/clothatlas">
+          <span class="icon"><i class="fab fa-github"></i></span><span>Code</span>
+        </a>
+        -->
+        <a class="button is-rounded is-dark" href="#video">
+          <span class="icon"><i class="fab fa-youtube"></i></span><span>Video</span>
+        </a>
+        <a class="button is-rounded is-dark" href="#bibtex">
+          <span class="icon"><i class="fas fa-quote-right"></i></span><span>BibTeX</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section pt-0" id="video">
+  <div class="container is-max-desktop">
+    <video class="teaser-video" controls playsinline preload="metadata" poster="static/images/video_poster.jpg">
+      <source src="static/videos/clothatlas.mp4" type="video/mp4">
+      Your browser does not support HTML5 video. <a href="static/videos/clothatlas.mp4">Download the video</a>.
+    </video>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Abstract</h2>
+    <div class="content has-text-justified">
+      <p>
+        Garment manipulation requires inferring both garment identity and complete configuration from
+        partial, self-occluded observations. This creates a chicken-and-egg problem: completing a partial
+        observation requires a garment-specific deformation prior, while identifying the garment requires
+        a configuration that explains the observation. We introduce ClothAtlas, which jointly identifies
+        garments and estimates their complete configurations from partial point clouds and a library of
+        canonical meshes. A shared graph-conditioned flow-matching model samples configurations for each
+        candidate mesh and ranks candidates by observation fit. The model accommodates different mesh
+        shapes, vertex counts, and connectivities, allowing new garments to be added from canonical meshes
+        alone without retraining.
+      </p>
+      <p>
+        On held-out DexGarmentLab garments, ClothAtlas ranks the correct mesh first among 221 candidates for
+        all 22 test garments from a single flat observation. From a single self-occluded observation, it
+        identifies 15/22 garments, compared with 8/22 for a deterministic graph estimator. Persistent vertex
+        identities support grasp-target localization on real garments, reducing mean error from 15.4 to
+        6.4&nbsp;cm overall and from 17.0 to 8.3&nbsp;cm on occluded targets compared with dense descriptor
+        matching.
+      </p>
+    </div>
+
+    <figure class="paper-figure teaser-figure">
+      <img src="static/images/teaser.png" alt="ClothAtlas takes a mesh library and a partial depth cloud and returns the identified canonical mesh and its full fitted configuration; below, three mesh vertices are tracked through a lifting action.">
+      <figcaption>
+        (a) ClothAtlas combines a canonical mesh library and partial depth observations to identify the
+        garment and estimate its complete configuration. Red points are observations; the blue surface is
+        the estimated configuration, including regions occluded from the camera. (b) Colored tracks connect
+        the estimated positions of three mesh vertices through a lifting action.
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="container is-max-desktop">
+    <div class="stats">
+      <div class="stat"><span class="stat-value">22/22</span><span class="stat-label">garments identified among 221 candidates from one flat observation</span></div>
+      <div class="stat"><span class="stat-value">15/22</span><span class="stat-label">identified from one self-occluded observation (8/22 for D-GNN)</span></div>
+      <div class="stat"><span class="stat-value">15.4 → 6.4&nbsp;cm</span><span class="stat-label">mean real-world grasp-target error vs. dense descriptors</span></div>
+      <div class="stat"><span class="stat-value">85.1%</span><span class="stat-label">occluded targets localized within 10&nbsp;cm (36.2% for dense descriptors)</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-widescreen">
+    <div class="container is-max-desktop">
+      <h2 class="title is-3 has-text-centered">Method</h2>
+      <div class="content has-text-justified">
+        <p>
+          ClothAtlas approximates the joint posterior over garment identity and configuration by generating
+          complete configurations and comparing their fit to the observations. For each candidate canonical
+          mesh, a conditional flow-matching model generates configurations from the current point cloud. We
+          identify the canonical mesh by accumulating observation-fit scores in the candidate weights across
+          observations, and report the highest-weight candidate and its configuration estimate.
+        </p>
+      </div>
+    </div>
+    <figure class="paper-figure">
+      <img src="static/images/overview.png" alt="Method overview: generative configuration estimation, mesh identification, and sequential update.">
+      <figcaption>
+        (a) A shared graph-conditioned generative model samples complete configurations from a partial
+        observation, Gaussian noise, and a candidate canonical mesh, which supplies reference vertex positions
+        and connectivity. The same model is used for every candidate mesh. (b) We score each candidate by the
+        observation fit of its configuration estimate, accumulate evidence across observations, and retain the
+        <i>k</i> highest-weight candidates after the initial identification period. (c) For each retained
+        candidate, we sample a new configuration from the current observation and update its weight.
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-widescreen">
+    <h2 class="title is-3 has-text-centered">Garment identification</h2>
+    <figure class="paper-figure">
+      <img src="static/images/identification.png" alt="Top-four candidates for a held-out top: ClothAtlas above, D-GNN below, colored by distance to the ground-truth surface.">
+      <figcaption>
+        Top-four candidates for a held-out top at lift frame 200: ClothAtlas above, D-GNN below. Insets show
+        canonical meshes. The correct mesh (green) ranks first for ClothAtlas and fifth for D-GNN, outside the
+        displayed candidates. Obs. RMS: observation-to-reconstructed-surface root mean squared distance.
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-widescreen">
+    <h2 class="title is-3 has-text-centered">Real-world grasp-target localization</h2>
+    <figure class="paper-figure">
+      <img src="static/images/real_world.png" alt="Real-world rollouts comparing ClothAtlas and dense descriptors on pants and a top under occlusion.">
+      <figcaption>
+        Four real-world rollouts compare ClothAtlas (upper rows) with dense semantic descriptors (DD, lower
+        rows) under temporary occlusion (pants, left) and persistent occlusion (top, right). Green marks the
+        second grasp target G2 and cyan its estimate; orange shows the completed mesh, and the heatmap shows
+        descriptor cosine similarity. Checks mark second grasps that reached the target; crosses mark failures.
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="section" id="bibtex">
+  <div class="container is-max-desktop content">
+    <h2 class="title is-3">BibTeX</h2>
+    <!-- TODO: replace with the final citation (arXiv id / proceedings). -->
+    <pre><code>@article{lundell2026clothatlas,
+  title   = {ClothAtlas: Joint Garment Identification and State Estimation under Self-Occlusion},
+  author  = {Lundell, Jens and Longhini, Alberta and Arora, Hemal and Robert, Evan and Shu, Lei and
+             Par{\'e}s-Morlans, Carlota and B{\"u}sching, Marcel and Bj{\"o}rkman, M{\aa}rten and Bohg, Jeannette},
+  journal = {arXiv preprint},
+  year    = {2026}
+}</code></pre>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container is-max-desktop has-text-centered">
+    <p>
+      Page layout adapted from the <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> project page,
+      licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.
+    </p>
+  </div>
+</footer>
+
+</body>
+</html>
