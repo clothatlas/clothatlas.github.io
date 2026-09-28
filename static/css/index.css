@@ -19,7 +19,8 @@ body {
 }
 
 .publication-authors { font-family: 'Google Sans', 'Noto Sans', sans-serif; margin-top: 1rem; }
-.publication-authors a { color: var(--accent) !important; }
+.publication-authors a { color: hsl(204, 86%, 53%) !important; }
+.publication-authors a:hover { text-decoration: underline; }
 .publication-affiliations { font-family: 'Google Sans', 'Noto Sans', sans-serif; color: #4a4a4a; font-size: 1.1rem !important; }
 .author-block { display: inline-block; margin: 0 0.2rem; }
 
