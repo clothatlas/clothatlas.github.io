@@ -33,9 +33,9 @@
       <div class="is-size-5 publication-authors">
         <span class="author-block"><a href="https://jsll.github.io/">Jens Lundell</a><sup>1,*</sup>,</span>
         <span class="author-block"><a href="https://albilo17.github.io/">Alberta Longhini</a><sup>2,*</sup>,</span>
+        <span class="author-block"><a href="https://www.linkedin.com/in/lei-shu/">Lei Shu</a><sup>2</sup>,</span>
         <span class="author-block"><a href="https://hemalarora1.github.io/">Hemal Arora</a><sup>2</sup>,</span>
         <span class="author-block"><a href="https://www.linkedin.com/in/evanrobert/">Evan Robert</a><sup>2</sup>,</span>
-        <span class="author-block"><a href="https://www.linkedin.com/in/lei-shu/">Lei Shu</a><sup>2</sup>,</span>
         <span class="author-block"><a href="https://carlotapares.com/">Carlota Parés-Morlans</a><sup>2</sup>,</span>
         <span class="author-block"><a href="https://buesma.github.io/">Marcel Büsching</a><sup>3</sup>,</span>
         <span class="author-block"><a href="https://www.kth.se/profile/celle">Mårten Björkman</a><sup>3</sup>,</span>
@@ -162,6 +162,44 @@
         displayed candidates. Obs. RMS: observation-to-reconstructed-surface root mean squared distance.
       </figcaption>
     </figure>
+
+    <h3 class="title is-4 has-text-centered subsection-title">Identification from a single self-occluded observation</h3>
+    <div class="clip-viewer" data-kind="identification">
+      <div class="buttons is-centered garment-tabs" role="group" aria-label="Garment">
+        <button class="button is-small is-rounded is-dark" data-clip="trousers-pl-pants023">Trousers 1</button>
+        <button class="button is-small is-rounded" data-clip="trousers-pl-pants131">Trousers 2</button>
+        <button class="button is-small is-rounded" data-clip="tops-tnlc-top089">Top</button>
+        <button class="button is-small is-rounded" data-clip="tops-tclc-jacket019">Jacket</button>
+        <button class="button is-small is-rounded" data-clip="dress-dlls-dress359">Dress 1</button>
+        <button class="button is-small is-rounded" data-clip="dress-dsls-dress415">Dress 2</button>
+      </div>
+      <video class="result-video" autoplay muted loop playsinline preload="metadata"
+             poster="static/images/posters/identification_trousers-pl-pants023.jpg" src="static/videos/identification/trousers-pl-pants023.mp4"></video>
+    </div>
+    <p class="video-caption">
+      Held-out simulated garments at lift frame 200, without the correct canonical mesh supplied. The top-three
+      candidates of ClothAtlas (upper row) and D-GNN (lower row) are colored by distance to the ground-truth
+      surface; the green box marks the correct mesh. Select a garment above.
+    </p>
+
+    <h3 class="title is-4 has-text-centered subsection-title">Sequential identification</h3>
+    <div class="clip-viewer" data-kind="temporal">
+      <div class="buttons is-centered garment-tabs" role="group" aria-label="Garment">
+        <button class="button is-small is-rounded is-dark" data-clip="trousers-pl-pants023">Trousers 1</button>
+        <button class="button is-small is-rounded" data-clip="trousers-pl-pants131">Trousers 2</button>
+        <button class="button is-small is-rounded" data-clip="tops-tnlc-top089">Top</button>
+        <button class="button is-small is-rounded" data-clip="tops-tclc-jacket019">Jacket</button>
+        <button class="button is-small is-rounded" data-clip="dress-dlls-dress359">Dress 1</button>
+        <button class="button is-small is-rounded" data-clip="dress-dsls-dress415">Dress 2</button>
+      </div>
+      <video class="result-video" autoplay muted loop playsinline preload="metadata"
+             poster="static/images/posters/temporal_trousers-pl-pants023.jpg" src="static/videos/temporal/trousers-pl-pants023.mp4"></video>
+    </div>
+    <p class="video-caption">
+      ClothAtlas accumulates observation-fit evidence over nine observations of a lifting action. Each timestep
+      shows the current top-three candidates, their reconstructions colored by distance to the ground-truth surface,
+      and the reconstruction RMSE; the green box marks the correct mesh.
+    </p>
   </div>
 </section>
 
@@ -177,6 +215,61 @@
         descriptor cosine similarity. Checks mark second grasps that reached the target; crosses mark failures.
       </figcaption>
     </figure>
+
+    <h3 class="title is-4 has-text-centered subsection-title">Real-world rollouts</h3>
+    <div class="rollouts">
+      <div class="rollout">
+        <h4 class="title is-5">Pants: temporary occlusion</h4>
+        <div class="rollout-grid" data-sync>
+          <div class="rollout-label">ClothAtlas</div>
+          <figure class="rollout-cell">
+            <video muted playsinline preload="metadata" poster="static/images/posters/real_pants_ca_estimate.jpg" src="static/videos/real/pants_ca_estimate.mp4"></video>
+            <figcaption>Completed mesh (side camera)</figcaption>
+          </figure>
+          <figure class="rollout-cell">
+            <video muted playsinline preload="metadata" poster="static/images/posters/real_pants_ca_robot.jpg" src="static/videos/real/pants_ca_robot.mp4"></video>
+            <figcaption>Grasp-target estimate (robot camera)</figcaption>
+          </figure>
+          <div class="rollout-label">Dense descriptors</div>
+          <figure class="rollout-cell">
+            <video muted playsinline preload="metadata" poster="static/images/posters/real_pants_dd_descriptor.jpg" src="static/videos/real/pants_dd_descriptor.mp4"></video>
+            <figcaption>Descriptor similarity (side camera)</figcaption>
+          </figure>
+          <figure class="rollout-cell">
+            <video muted playsinline preload="metadata" poster="static/images/posters/real_pants_dd_robot.jpg" src="static/videos/real/pants_dd_robot.mp4"></video>
+            <figcaption>Grasp-target estimate (robot camera)</figcaption>
+          </figure>
+        </div>
+      </div>
+      <div class="rollout">
+        <h4 class="title is-5">Top: persistent occlusion</h4>
+        <div class="rollout-grid" data-sync>
+          <div class="rollout-label">ClothAtlas</div>
+          <figure class="rollout-cell">
+            <video muted playsinline preload="metadata" poster="static/images/posters/real_top_ca_estimate.jpg" src="static/videos/real/top_ca_estimate.mp4"></video>
+            <figcaption>Completed mesh (side camera)</figcaption>
+          </figure>
+          <figure class="rollout-cell">
+            <video muted playsinline preload="metadata" poster="static/images/posters/real_top_ca_robot.jpg" src="static/videos/real/top_ca_robot.mp4"></video>
+            <figcaption>Grasp-target estimate (robot camera)</figcaption>
+          </figure>
+          <div class="rollout-label">Dense descriptors</div>
+          <figure class="rollout-cell">
+            <video muted playsinline preload="metadata" poster="static/images/posters/real_top_dd_descriptor.jpg" src="static/videos/real/top_dd_descriptor.mp4"></video>
+            <figcaption>Descriptor similarity (side camera)</figcaption>
+          </figure>
+          <figure class="rollout-cell">
+            <video muted playsinline preload="metadata" poster="static/images/posters/real_top_dd_robot.jpg" src="static/videos/real/top_dd_robot.mp4"></video>
+            <figcaption>Grasp-target estimate (robot camera)</figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+    <p class="video-caption">
+      The robot grasps the garment, lifts it, and then grasps a second target G2 that may be hidden from the camera.
+      Green marks G2 and cyan its estimate. ClothAtlas tracks G2 through the persistent vertex identities of its completed
+      mesh (blue); dense descriptor matching uses the best-matching visible point (heatmap). Videos in each row play in sync.
+    </p>
   </div>
 </section>
 
@@ -186,7 +279,7 @@
     <!-- TODO: replace with the final citation (arXiv id / proceedings). -->
     <pre><code>@article{lundell2026clothatlas,
   title   = {ClothAtlas: Joint Garment Identification and State Estimation under Self-Occlusion},
-  author  = {Lundell, Jens and Longhini, Alberta and Arora, Hemal and Robert, Evan and Shu, Lei and
+  author  = {Lundell, Jens and Longhini, Alberta and Shu, Lei and Arora, Hemal and Robert, Evan and
              Par{\'e}s-Morlans, Carlota and B{\"u}sching, Marcel and Bj{\"o}rkman, M{\aa}rten and Bohg, Jeannette},
   journal = {arXiv preprint},
   year    = {2026}
@@ -202,6 +295,42 @@
     </p>
   </div>
 </footer>
+
+<script>
+  // Garment selector for the simulation result videos.
+  document.querySelectorAll('.clip-viewer').forEach(function (viewer) {
+    var kind = viewer.dataset.kind;
+    var video = viewer.querySelector('video');
+    viewer.querySelectorAll('[data-clip]').forEach(function (button) {
+      button.addEventListener('click', function () {
+        viewer.querySelectorAll('[data-clip]').forEach(function (b) { b.classList.remove('is-dark'); });
+        button.classList.add('is-dark');
+        video.poster = 'static/images/posters/' + kind + '_' + button.dataset.clip + '.jpg';
+        video.src = 'static/videos/' + kind + '/' + button.dataset.clip + '.mp4';
+        video.play().catch(function () {});
+      });
+    });
+  });
+
+  // Play each real-world rollout grid in sync while it is on screen, restarting all videos together.
+  document.querySelectorAll('[data-sync]').forEach(function (group) {
+    var videos = Array.prototype.slice.call(group.querySelectorAll('video'));
+    var visible = false;
+    function playAll() { videos.forEach(function (v) { v.play().catch(function () {}); }); }
+    videos.forEach(function (v) {
+      v.addEventListener('ended', function () {
+        if (videos.every(function (o) { return o.ended || o.currentTime >= o.duration - 0.1; })) {
+          videos.forEach(function (o) { o.currentTime = 0; });
+          if (visible) playAll();
+        }
+      });
+    });
+    new IntersectionObserver(function (entries) {
+      visible = entries[0].isIntersecting;
+      if (visible) playAll(); else videos.forEach(function (v) { v.pause(); });
+    }, { threshold: 0.25 }).observe(group);
+  });
+</script>
 
 </body>
 </html>
